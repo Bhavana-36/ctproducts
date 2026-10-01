@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CT Product Portfolio — Executive View</title>
+<style>
+:root{
+  --bg:#f5f7fb; --card:#ffffff; --text:#172033; --muted:#687386;
+  --line:#e5e9f0; --accent:#315efb; --accent2:#7c3aed;
+  --soft:#eef3ff; --green:#0f9f6e; --shadow:0 18px 50px rgba(28,39,68,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+.hero{
+  padding:58px 7% 44px;
+  background:linear-gradient(135deg,#111827 0%,#18254b 55%,#243b86 100%);
+  color:white;position:relative;overflow:hidden
+}
+.hero:after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;
+background:rgba(255,255,255,.06);right:-100px;top:-170px}
+.hero .eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:.7;font-weight:700}
+.hero h1{font-size:clamp(30px,4vw,52px);margin:12px 0 12px;line-height:1.05}
+.hero p{max-width:760px;margin:0;color:#cbd5e7;font-size:16px;line-height:1.7}
+.flow{display:flex;align-items:center;gap:10px;margin-top:28px;flex-wrap:wrap}
+.flow span{padding:9px 13px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);
+border-radius:999px;font-size:12px}.flow b{opacity:.45}
+
+.wrap{width:min(1180px,90%);margin:0 auto;padding:42px 0 70px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px}
+.section-head h2{margin:0;font-size:25px}.section-head p{margin:5px 0 0;color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;
+  min-height:205px;box-shadow:0 5px 18px rgba(30,40,70,.035);
+  transition:.25s ease;position:relative;overflow:hidden
+}
+.card:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:#ccd6ff}
+.card .top{display:flex;justify-content:space-between;align-items:flex-start}
+.icon{
+  width:45px;height:45px;border-radius:13px;display:grid;place-items:center;
+  background:linear-gradient(135deg,#eef2ff,#e8e7ff);color:#315efb;font-weight:800;font-size:16px
+}
+.badge{font-size:10px;color:var(--green);background:#eafaf4;border-radius:999px;padding:6px 9px;font-weight:700}
+.card h3{margin:18px 0 6px;font-size:19px}.card p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+.card button{
+  margin-top:19px;border:0;background:transparent;color:var(--accent);font-weight:750;
+  cursor:pointer;padding:0;font-size:13px
+}
+.card button:hover{text-decoration:underline}
+.footer-note{
+  margin-top:26px;padding:20px 22px;background:#111827;color:#d8e0ee;border-radius:18px;
+  font-size:13px;line-height:1.7
+}.footer-note strong{color:white}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(9, 15, 29, .68);
+    backdrop-filter: blur(7px);
+    z-index: 50;
+    padding: 28px;
+    overflow-y: auto;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-box {
+    width: min(900px, 100%);
+    max-height: calc(100vh - 56px);
+    overflow-y: auto;
+    background: white;
+    border-radius: 26px;
+    box-shadow: 0 30px 100px rgba(0, 0, 0, .25);
+    animation: pop .2s ease;
+    margin: auto;
+}
+
+/* .modal{
+  display:none;position:fixed;inset:0;background:rgba(9,15,29,.68);backdrop-filter:blur(7px);
+  z-index:50;padding:28px;overflow:auto; align-items:center;justify-content:center
+}
+.modal.show{display:flex;align-items:center;justify-content:center}
+.modal-box{
+  width:min(900px,100%);background:white;border-radius:26px;box-shadow:0 30px 100px rgba(0,0,0,.25);
+  overflow:hidden;animation:pop .2s ease
+} */
+@keyframes pop{from{transform:scale(.96);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-head{
+  padding:28px 30px;background:linear-gradient(135deg,#111827,#263d8d);color:white;
+  display:flex;justify-content:space-between;gap:20px
+}
+.modal-head .eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:1.8px;opacity:.65;font-weight:800}
+.modal-head h2{margin:7px 0 5px;font-size:28px}.modal-head p{margin:0;color:#cbd5e7;font-size:13px}
+.close{border:0;background:rgba(255,255,255,.1);color:white;width:40px;height:40px;border-radius:50%;
+font-size:23px;cursor:pointer;flex:0 0 auto}.close:hover{background:rgba(255,255,255,.18)}
+.modal-body{padding:27px 30px 31px}
+.summary{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:23px
+}
+.stat{background:#f7f8fc;border:1px solid #e8ebf2;border-radius:14px;padding:14px}
+.stat small{display:block;color:#7a8495;font-size:10px;text-transform:uppercase;letter-spacing:.7px;font-weight:700}
+.stat strong{display:block;margin-top:5px;font-size:20px}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.panel{border:1px solid var(--line);border-radius:17px;padding:18px}
+.panel.full{grid-column:1/-1}
+.panel h4{margin:0 0 12px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#566175}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{padding:8px 11px;border-radius:10px;background:#f4f6fa;color:#283349;font-size:12px;font-weight:650;border:1px solid #e7eaf0}
+.tag.active{background:#edf2ff;color:#284fd3;border-color:#dbe3ff}
+.tag.inactive{color:#8b93a1;background:#fafafa}
+.note{margin-top:18px;color:#778194;font-size:11px;line-height:1.6}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){
+  .hero{padding:42px 6%}.wrap{width:88%}.grid{grid-template-columns:1fr}
+  .summary{grid-template-columns:repeat(2,1fr)}.detail-grid{grid-template-columns:1fr}
+  .panel.full{grid-column:auto}.modal{padding:12px}.modal-head,.modal-body{padding:22px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">Clonetab • Executive Product View</div>
+  <h1>CT Product Portfolio</h1>
+  <p>Explore what each CT product offers — the supported technology, deployment environment, product variants and commercial licensing options.</p>
+  <div class="flow">
+    <span>Product</span><b>→</b><span>Technology</span><b>→</b><span>Deployment</span><b>→</b><span>Variant</span><b>→</b><span>License</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="section-head">
+    <div>
+      <h2>Our Products</h2>
+      <p>Select any product to explore its complete offering.</p>
+    </div>
+  </div>
+  <section class="grid" id="productGrid"></section>
+
+  <div class="footer-note">
+    <strong>How to read this view:</strong> Each product card represents one CT offering.
+    Select <strong>View Product Details</strong> to see what technologies it supports, where it can be deployed,
+    which variants are available, and how it can be licensed.
+  </div>
+</main>
+
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <div class="eyebrow">Product Details</div>
+        <h2 id="mTitle"></h2>
+        <p id="mDesc"></p>
+      </div>
+      <button class="close" onclick="closeModal()" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="summary" id="stats"></div>
+      <div class="detail-grid">
+        <div class="panel">
+          <h4>Supported Technology / Database</h4>
+          <div class="tags" id="db"></div>
+        </div>
+        <div class="panel">
+          <h4>Deployment / Instance</h4>
+          <div class="tags" id="instance"></div>
+        </div>
+        <div class="panel full">
+          <h4>Product Variants</h4>
+          <div class="tags" id="variants"></div>
+        </div>
+        <div class="panel full">
+          <h4>Commercial License Options</h4>
+          <div class="tags" id="licenses"></div>
+        </div>
+      </div>
+      <div class="note">Blue items are currently enabled offerings. Grey items are catalogued but not currently enabled.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const products = [
+ {name:"CT-Clone",desc:"Database cloning and refresh capabilities.",db:["Oracle"],inactiveDb:["MySQL","PostgreSQL","Hana","SQL-Server"],
+  instance:["Database","e-Business Suite"],variants:["CT-Clone","CT-CloneP","CT-CloneA","CT-TDB"],licenses:["Trial","1 Year Subscription","3 Years Subscription","POC"]},
+ {name:"CT-LAS",desc:"License and application support capabilities.",db:["Oracle","SQL-Server"],instance:["Database","e-Business Suite"],
+  variants:["CT for Oracle Database","CT for Oracle EBS","CT for SQL-Server"],licenses:["Trial","1 Year Subscription","3 Years Subscription","POC"]},
+ {name:"CT-CI/CD",desc:"Continuous integration and delivery capabilities.",db:["MySQL","PostgreSQL","Hana","Oracle","SQL-Server"],
+  instance:["Database","Hana Application","Oracle EBS"],variants:["CT-CI/CD","CT-CI/CD-DB","CT-CI/CD-HANA","CT-CI/CD-ORACLE","CT-CI/CD-SQL","CT-CI/CD-APP","CT-CI/CD-EBS"],
+  licenses:["Trial","1 Year Subscription","3 Years Subscription","POC"]},
+ {name:"CT-Snap",desc:"Database snapshot and recovery capabilities.",db:["Oracle"],instance:["Database","e-Business Suite"],
+  variants:["CT-Snap","CT-SnapP","CT-SnapA","CT-SnapEBS","CT-SnapDB","CT-SnapT"],licenses:["Trial","1 Year Subscription","3 Years Subscription","POC"]},
+ {name:"CT-DR",desc:"Disaster recovery capabilities.",db:["Oracle"],instance:["Database","e-Business Suite"],
+  variants:["CT-DR","CT-DR-EBS","CT-DR-DB","CT-DR-P"],licenses:["Trial","1 Year Subscription","3 Years Subscription","POC"]},
+ {name:"CT-Backups",desc:"Backup and restore capabilities.",db:["Oracle"],instance:["Database","e-Business Suite"],
+  variants:["CT-Backups","CT-Backups-EBS"],licenses:["Trial","1 Year Subscription","3 Years Subscription","POC"]},
+ {name:"CT-ADS",desc:"Application and database support across multiple technologies.",db:["MySQL","PostgreSQL","Hana","Oracle","SQL-Server","Cassandra","MongoDB","IBM DB2","MariaDB"],
+  instance:["Database","Hana Application","Oracle EBS"],variants:["CT-ADS"],licenses:["Trial","1 Year Subscription","3 Years Subscription","POC"]},
+ {name:"CT-Patch",desc:"Database patching capabilities.",db:["Oracle"],instance:["Database","e-Business Suite"],
+  variants:["CT-Patch","CT-Patch-EBS"],licenses:["Trial","1 Year Subscription","3 Years Subscription","POC"]},
+ {name:"CT-Synthetic",desc:"Synthetic monitoring and observability capabilities.",db:["Oracle"],instance:["Database","e-Business Suite"],
+  variants:["CT-SynthMon","CT-SynthObs","CT-SynthMon-EBS","CT-SynthObs-EBS"],licenses:["Trial","1 Year Subscription","3 Years Subscription","POC"]},
+ {name:"CT-NIC",desc:"Network and infrastructure connectivity capabilities.",db:["Oracle"],instance:["Database","e-Business Suite"],
+  variants:["CT-NIC","CT-NIC-P","CT-NIC-A","CT-NIC-EBS","CT-NIC-DB","CT-NIC-T"],licenses:["Trial","1 Year Subscription","3 Years Subscription","POC"]},
+ {name:"CT-Core",desc:"Core platform capabilities.",db:["Oracle"],instance:["Database","e-Business Suite"],
+  variants:["CT-Core","CT-CoreP","CT-CoreA","CT-CoreTDB","CT-Core-EBS","CT-CoreP-EBS","CT-CoreA-EBS","CT-CoreTDB-EBS"],
+  licenses:["Trial","1 Year Subscription","3 Years Subscription","POC"]}
+];
+
+const grid=document.getElementById("productGrid");
+const initials=n=>n.replace("CT-","").slice(0,2).toUpperCase();
+
+products.forEach((p,i)=>{
+ const card=document.createElement("article");
+ card.className="card";
+ card.innerHTML=`<div class="top"><div class="icon">${initials(p.name)}</div><span class="badge">Available</span></div>
+ <h3>${p.name}</h3><p>${p.desc}</p>
+ <button onclick="openModal(${i})">View Product Details →</button>`;
+ grid.appendChild(card);
+});
+
+function tags(list, inactive=[]){
+ return [...list.map(x=>`<span class="tag active">${x}</span>`),
+         ...inactive.map(x=>`<span class="tag inactive">${x} · Not enabled</span>`)].join("");
+}
+function openModal(i){
+ const p=products[i];
+ document.getElementById("mTitle").textContent=p.name;
+ document.getElementById("mDesc").textContent=p.desc;
+ document.getElementById("db").innerHTML=tags(p.db,p.inactiveDb||[]);
+ document.getElementById("instance").innerHTML=tags(p.instance);
+ document.getElementById("variants").innerHTML=tags(p.variants);
+ document.getElementById("licenses").innerHTML=tags(p.licenses);
+ document.getElementById("stats").innerHTML=
+  `<div class="stat"><small>Technologies</small><strong>${p.db.length}</strong></div>
+   <div class="stat"><small>Deployments</small><strong>${p.instance.length}</strong></div>
+   <div class="stat"><small>Variants</small><strong>${p.variants.length}</strong></div>
+   <div class="stat"><small>License Options</small><strong>${p.licenses.length}</strong></div>`;
+ document.getElementById("modal").classList.add("show");
+ document.getElementById("modal").setAttribute("aria-hidden","false");
+ document.body.style.overflow="hidden";
+}
+function closeModal(){
+ document.getElementById("modal").classList.remove("show");
+ document.getElementById("modal").setAttribute("aria-hidden","true");
+ document.body.style.overflow="";
+}
+document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+</script>
+</body>
+</html>
